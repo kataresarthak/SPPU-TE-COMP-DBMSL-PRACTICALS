@@ -1,0 +1,31 @@
+Note: This is a MySQL and JavaScript Connectivity.
+Requirements:
+Step 1:
+Node.js: Make sure Node.js is installed.
+MySQL: Install and set up MySQL on your machine.
+MySQL Node.js Package: Install the MySQL package by running:
+npm install mysql
+
+Step 1: Set Up the Database
+Create a Database called test_db in MySQL.
+
+Create a Table in test_db:
+
+CREATE TABLE users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL,
+    email VARCHAR(50) NOT NULL
+);
+
+Step 2:
+Create a JavaScript File: Save it as file_name.js.
+Add the code.
+
+Step 3: Run the Code
+In your terminal, navigate to the folder where file_name.js is located and run:
+node file_name.js
+
+Output
+If successful, you’ll see:
+Connected to MySQL!
+Record inserted with ID: [ID]

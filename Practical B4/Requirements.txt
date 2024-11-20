@@ -1,0 +1,19 @@
+Note: This is a MongoDB and JavaScript Connectivity.
+Requirements
+
+MongoDB: Install MongoDB locally or use a MongoDB Atlas (cloud) instance.
+MongoDB Node.js Driver: Install the MongoDB package by running:
+npm install mongoose
+
+Step 1: Write the JS Code
+Create a JavaScript File: Save it as filename.js.
+Add the code
+
+Step 2: Run the Code
+In your terminal, navigate to the folder where filename.js is located and run:
+node filename.js
+
+Output
+If successful, you’ll see:
+Connected to MongoDB!
+Document inserted with _id: [ObjectId]

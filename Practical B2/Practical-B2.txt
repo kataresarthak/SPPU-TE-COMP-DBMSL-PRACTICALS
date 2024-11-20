@@ -1,0 +1,78 @@
+// INDEXING OPERATIONS
+
+// 1. Create collection 'stud' with fields (rno, name, class)
+db.createCollection("stud");
+db.stud.insertMany([
+    { rno: 1, name: "Alice", class: "A" },
+    { rno: 2, name: "Bob", class: "B" },
+    { rno: 3, name: "Charlie", class: "A" }
+]);
+
+// 2. Create single index on field 'rno' in ascending order
+db.stud.createIndex({ rno: 1 });
+
+// 3. Create unique index on field 'rno'
+db.stud.createIndex({ rno: 1 }, { unique: true });
+
+// 4. Create compound index on field 'rno' in ascending order and 'name' in descending order
+db.stud.createIndex({ rno: 1, name: -1 });
+
+// 5. Display indexes created on 'stud' collection
+db.stud.getIndexes();
+
+// 6. Drop the index on 'rno'
+db.stud.dropIndex({ rno: 1 });
+
+
+// AGGREGATION OPERATIONS
+
+// 1. Create collection 'Product' and insert documents
+db.createCollection("Product");
+db.Product.insertMany([
+    { item: "paste", amount: 40, customer: "Mike" },
+    { item: "Guitar", amount: 200, customer: "Tom" },
+    { item: "milk", amount: 60, customer: "Mike" },
+    { item: "pizza", amount: 150, customer: "Kiran" },
+    { item: "paste", amount: 40, customer: "Kiran" },
+    { item: "pizza", amount: 150, customer: "Devika" },
+    { item: "paste", amount: 40, customer: "Mike" },
+    { item: "paste", amount: 40, customer: "Niraj" },
+    { item: "Guitar", amount: 200, customer: "Reena" },
+    { item: "milk", amount: 60, customer: "Mike" },
+    { item: "pizza", amount: 150, customer: "Devika" },
+    { item: "paste", amount: 40, customer: "Devika" },
+    { item: "pizza", amount: 150, customer: "Kiran" },
+    { item: "paste", amount: 40, customer: "Reena" }
+]);
+
+// 2. Perform Aggregate Operations
+
+// Minimum ($min)
+db.Product.aggregate([
+    { $group: { _id: "$item", minAmount: { $min: "$amount" } } }
+]);
+
+// Maximum ($max)
+db.Product.aggregate([
+    { $group: { _id: "$item", maxAmount: { $max: "$amount" } } }
+]);
+
+// Sum ($sum)
+db.Product.aggregate([
+    { $group: { _id: null, totalAmount: { $sum: "$amount" } } }
+]);
+
+// Average ($avg)
+db.Product.aggregate([
+    { $group: { _id: null, avgAmount: { $avg: "$amount" } } }
+]);
+
+// First ($first)
+db.Product.aggregate([
+    { $group: { _id: null, firstItem: { $first: "$item" } } }
+]);
+
+// Last ($last)
+db.Product.aggregate([
+    { $group: { _id: null, lastItem: { $last: "$item" } } }
+]);

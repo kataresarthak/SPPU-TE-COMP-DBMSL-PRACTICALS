@@ -1,0 +1,74 @@
+Create Institute Database and Create Student collection 
+1. RollNo 
+2. Name 
+3. Age 
+4. Branch 
+5. Address :{ City, State} 
+6. Hobbies (Array)
+
+1.Create database Institute
+use Institute
+
+2. Create collection Students. 
+	db.createCollection("Students")
+
+3. Insert 10 documents with above mentioned structure. 
+	db.Students.insertMany([
+    { RollNo: 1, Name: "Aryan Jain", Age: 20, Branch: "Computer", Address: { City: "Pune", State: "Maharashtra" }, Hobbies: ["Coding", "Reading"] },
+    { RollNo: 2, Name: "Rahul Sharma", Age: 21, Branch: "Mechanical", Address: { City: "Nashik", State: "Maharashtra" }, Hobbies: ["Football", "Gaming"] },
+    { RollNo: 3, Name: "Sanjay Kumar", Age: 19, Branch: "Civil", Address: { City: "Pune", State: "Maharashtra" }, Hobbies: ["Music", "Sketching"] },
+    { RollNo: 4, Name: "Pooja Singh", Age: 18, Branch: "Electrical", Address: { City: "Mumbai", State: "Maharashtra" }, Hobbies: ["Dance", "Cooking"] },
+    { RollNo: 5, Name: "Aditi Verma", Age: 22, Branch: "Computer", Address: { City: "Nagpur", State: "Maharashtra" }, Hobbies: ["Photography", "Painting"] },
+    { RollNo: 6, Name: "Aarav Patel", Age: 20, Branch: "Mechanical", Address: { City: "Ahmedabad", State: "Gujarat" }, Hobbies: ["Cricket", "Reading"] },
+    { RollNo: 7, Name: "Neha Gupta", Age: 19, Branch: "Civil", Address: { City: "Nashik", State: "Maharashtra" }, Hobbies: ["Coding", "Traveling"] },
+    { RollNo: 8, Name: "Ravi Mehta", Age: 21, Branch: "Electrical", Address: { City: "Pune", State: "Maharashtra" }, Hobbies: ["Gaming", "Football"] },
+    { RollNo: 9, Name: "Aman Joshi", Age: 22, Branch: "Mechanical", Address: { City: "Surat", State: "Gujarat" }, Hobbies: ["Reading", "Traveling"] },
+    { RollNo: 10, Name: "Shruti Desai", Age: 20, Branch: "Computer", Address: { City: "Pune", State: "Maharashtra" }, Hobbies: ["Dancing", "Singing"] }
+])
+
+4. Display all students’ information. 
+	db.Students.find()
+
+5. Display Student information whose age is greater than 15. 
+	db.Students.find({ Age: { $gt: 15 } })
+
+6. Display Student information sorted on name field
+	db.Students.find().sort({ Name: 1 })
+
+7. Update student branch Computer of RollNo 3. 
+db.Students.updateOne({ RollNo: 3 }, { $set: { Branch: "Computer" } })
+
+8. Remove document with RollNo 1 
+	db.Students.deleteOne({ RollNo: 1 })
+
+9. Display Student information whose name starts with A 
+	db.Students.find({ Name: { $regex: 'A' } })
+
+10. Display the total numbers of documents available in collection. 
+	db.Students.countDocuments()
+
+11. Display only first 5 documents. 
+	db.Students.find().limit(5)
+
+12. Display all documents instead of first 3. 
+	db.Students.find().skip(3)
+
+13. Display the name of Students who live in Pune City. 
+	db.Students.find({ "Address.City": "Pune" }, { Name: 1, _id: 0 })
+
+14. Display the list of different cities from where students are coming. 
+	db.Students.distinct("Address.City")
+
+15. Display the list of different cities with number of students from belonging to that city. 
+	db.Students.aggregate([
+    { $group: { _id: "$Address.City", studentCount: { $sum: 1 } } }
+])
+
+16. Display only Name of all students. 
+	db.Students.find({}, { Name: 1, _id: 0 })
+
+17. Display the hobbies of each student. 
+	db.Students.find({}, { Name: 1, Hobbies: 1, _id: 0 })
+
+18. Drop Collection
+	db.Students.drop()
